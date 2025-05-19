@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Signup Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      width: 370px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1rem;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      background: none;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tabs button.active {
+      border-color: #000;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1rem;
+      transform: rotate(90deg);
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0;
+    }
+
+    p {
+      text-align: center;
+      color: gray;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    form {
+      display: none;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .password-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.3rem;
+    }
+
+    .password-section a {
+      font-size: 0.9rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .login-btn {
+      width: 100%;
+      background-color: #2d2d2d;
+      color: white;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #888;
+    }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .social-login button {
+      background: #f0f0f0;
+      border: none;
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .social-login img {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">▶</div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchForm('login')">Login</button>
+      <button class="tab-btn" onclick="switchForm('signup')">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="active" onsubmit="handleLogin(event)">
+      <h2>Welcome back</h2>
+      <p>Please enter your details to login.</p>
+
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="you@example.com" required />
+
+      <div class="password-section">
+        <label for="login-password">Password</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <input type="password" id="login-password" required />
+
+      <div class="remember-me">
+        <input type="checkbox" id="remember" />
+        <label for="remember">Remember me</label>
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" onsubmit="event.preventDefault(); alert('Signup submitted!')">
+      <h2>Create an account</h2>
+      <p>Fill the details to register.</p>
+
+      <label for="signup-name">Full Name</label>
+      <input type="text" id="signup-name" placeholder="Your Name" required />
+
+      <label for="signup-email">Email</label>
+      <input type="email" id="signup-email" placeholder="you@example.com" required />
+
+      <label for="signup-password">Password</label>
+      <input type="password" id="signup-password" required />
+
+      <button type="submit" class="login-btn">Sign Up</button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <div class="social-login">
+      <button><img src="https://img.icons8.com/color/48/000000/google-logo.png"/>Google</button>
+      <button><img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png"/>Apple</button>
+      <button><img src="https://img.icons8.com/ios-filled/50/1877f2/facebook-new.png"/>Facebook</button>
+      <button><img src="https://img.icons8.com/ios-glyphs/30/000000/github.png"/>GitHub</button>
+    </div>
+  </div>
+
+  <script>
+    function switchForm(form) {
+      document.getElementById('loginForm').classList.remove('active');
+      document.getElementById('signupForm').classList.remove('active');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(form + 'Form').classList.add('active');
+      document.querySelector(`.tab-btn[onclick="switchForm('${form}')"]`).classList.add('active');
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      // Redirect to your frontend folder
+      window.location.href = "/frontend/index.html"; // adjust this path if needed
+    }
+  </script>
+</body>
+</html>
